@@ -59,6 +59,10 @@ let update = (element, value) => {
     }, data => {if (data.message) alert(data.message)});
 }
 
+let updateTable = _ => {
+    $.post('processar.php', { action: 'getAll' }, data => table.rows.add(data).draw());
+}
+
 $(document).ready(function () {
     table = $('#lista').DataTable({
         columns: [
@@ -73,9 +77,6 @@ $(document).ready(function () {
             { data: 'email' },
             { data: 'ativo' },
         ],
-        rowCallback: ( row, data, displayNum, displayIndex, dataIndex ) => {
-            // data.ativo = 'no'
-        },
         createdRow: function( row, data, dataIndex ) {
             let checkbox = $('<input/>', {type: 'checkbox'}).prop('checked', data.ativo);
 
@@ -91,5 +92,26 @@ $(document).ready(function () {
         }
     });
 
-    $.post('processar.php', {action:'getAll'}, data => table.rows.add(data).draw());
+    updateTable();
+
+    $('form').on('submit', e => {
+        e.preventDefault();
+
+        if (document.upload.arquivo.files.length) {
+            $.ajax({
+                type: 'post',
+                cache: false,
+                url: 'processar.php',
+                data: new FormData(document.upload),
+                contentType: false,
+                processData: false,
+                success: data => {
+                    table.rows.add(data).draw();
+                    document.upload.arquivo.value = '';
+                }
+            });
+        } else {
+            alert('Por favor, selecione um arquivo primeiro.');
+        }
+    })
 });

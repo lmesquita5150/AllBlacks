@@ -17,8 +17,7 @@ if ($_POST && isset($_POST['action'])) {
             $data = $controller->{$action}();
             break;
         case 'insert':
-            $controller->xmlUpload();
-            header('Location: ./');
+            $data = $controller->xmlUpload();
             break;
         case 'update':
             $data = $controller->{$action}($_POST);
@@ -27,6 +26,3 @@ if ($_POST && isset($_POST['action'])) {
 
     echo json_encode($data);
 }
-// } else {
-//     echo json_encode($controller->getAll());
-// }

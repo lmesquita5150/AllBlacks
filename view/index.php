@@ -20,29 +20,19 @@
 
 
         <title>Document</title>
+
+        <style>
+            p {color: #117221}
+        </style>
     </head>
     <body>
         <h1 class="display-6">AllBlacks</h1>
-        <?php
-           /*  if(isset($_POST['acao'])){
-                $arquivo =$_FILES['file'];
-                 $arquivoNovo = explode('.',$arquivo['name']);
-                if($arquivoNovo[sizeof($arquivoNovo)-1] != 'xml'){
-                    die('voce não pode importar este tipo de srquivo por favor escolha um xml valido');
-                }else{
-                    echo'importado com sucesso';
-                }
-            } */
-
-         /*    $xml=simplexml_load_file("clientes.xml");
-                echo $xml->getName() . "<br>"; */
-
-
-        ?>
-        <form method="POST" enctype="multipart/form-data">
-            <input type="file" name="arquivo"/>
-            <input type="submit" name="acao" value="enviar">
+        <form method="POST" enctype="multipart/form-data" name="upload">
+            <input type="hidden" name="action" value="insert" />
+            <input type="file" name="arquivo" accept="text/xml" />
+            <input type="submit" value="enviar">
         </form>
+        <p>Dê duplo clique para editar algum dado.</p>
 
         <div class="container">
         <table id="lista" class="table table-bordered display table-hover">
@@ -58,25 +48,8 @@
                     <th>Telefone</th>
                     <th>Email</th>
                     <th>Ativo</th>
-                    <th></th>
-                    <th></th>
                 </tr>
             </thead>
-            <!-- <tbody>
-                <?php foreach($resultData as $key => $vl): ?>
-                    <tr>
-                        <td><?=$vl->nome?></td>
-                        <td><?=$vl->documento?></td>
-                        <td><?=$vl->cep?></td>
-                        <td><?=$vl->endereco?></td>
-                        <td><?=$vl->bairro?></td>
-                        <td><?=$vl->cidade?></td>
-                        <td><?=$vl->uf?></td>
-                        <td><?=$vl->telefone?></td>
-                        <td><?=$vl->email?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody> -->
         </table>
         </div>
     <!-- JS CDN -->
